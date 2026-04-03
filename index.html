@@ -1,1 +1,479 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Name – Data Analyst Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sidebar-width: 260px;
+      --bg: #f4f4f0;
+      --card-bg: #ffffff;
+      --sidebar-bg: #ffffff;
+      --text: #1a1a1a;
+      --muted: #666;
+      --accent: #2563eb;
+      --accent-light: #eff6ff;
+      --tag-bg: #f0f0ec;
+      --tag-text: #444;
+      --border: #e5e5e0;
+      --radius: 14px;
+      --btn-bg: #f0f4ff;
+      --btn-text: #2563eb;
+      --btn-hover: #dbeafe;
+      --shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ── SIDEBAR ── */
+    aside {
+      width: var(--sidebar-width);
+      min-height: 100vh;
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border);
+      padding: 32px 20px;
+      position: fixed;
+      top: 0; left: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      overflow-y: auto;
+    }
+
+    .profile-pic {
+      width: 96px; height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: var(--tag-bg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+      border: 3px solid var(--border);
+    }
+
+    .profile-pic img {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .profile-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.35rem;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .profile-role {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .profile-role strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .profile-location {
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .sidebar-card {
+      background: var(--bg);
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 0.82rem;
+    }
+
+    .sidebar-card-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .sidebar-card p {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .sidebar-section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 0.78rem;
+      font-weight: 500;
+    }
+
+    .socials {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+
+    .social-btn {
+      width: 38px; height: 38px;
+      border-radius: 8px;
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .social-btn:hover {
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+
+    .social-btn.email-link {
+      grid-column: span 2;
+      width: auto;
+      padding: 0 12px;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-light);
+      border-color: transparent;
+    }
+
+    /* ── MAIN ── */
+    main {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      padding: 36px 36px 60px;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.7rem;
+      margin-bottom: 24px;
+      color: var(--text);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    /* ── PROJECT CARD ── */
+    .project-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.11);
+    }
+
+    .project-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      background: var(--tag-bg);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .project-img img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+
+    .project-body {
+      padding: 16px 18px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .project-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .project-desc {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .project-footer {
+      display: flex;
+      gap: 8px;
+      padding: 0 18px 16px;
+    }
+
+    .btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid #dbeafe;
+      transition: background 0.15s;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: var(--btn-hover);
+    }
+
+    .btn svg {
+      width: 14px; height: 14px;
+      flex-shrink: 0;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      body { flex-direction: column; }
+      aside {
+        position: relative;
+        width: 100%;
+        min-height: unset;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      main { margin-left: 0; padding: 24px 16px 48px; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     SIDEBAR
+══════════════════════════════════ -->
+<aside>
+
+  <!-- Profile pic: replace the emoji with an <img> tag once you have a photo -->
+  <div class="profile-pic">🧑‍💻</div>
+
+  <div>
+    <div class="profile-name">Your Name</div>
+    <div class="profile-role">Data Analyst at <strong>Company</strong></div>
+    <div class="profile-location">
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+      Based in City, Country
+    </div>
+  </div>
+
+  <div class="sidebar-card">
+    <div class="sidebar-card-label">About Me</div>
+    <p>Write a short bio here. Describe your background, what you specialise in, and what drives you as a data professional.</p>
+  </div>
+
+  <div>
+    <div class="sidebar-section-label">Proficiencies</div>
+    <div class="tags">
+      <span class="tag">SQL</span>
+      <span class="tag">Python</span>
+      <span class="tag">R</span>
+      <span class="tag">Tableau</span>
+      <span class="tag">Excel</span>
+      <span class="tag">Statistical Modelling</span>
+      <span class="tag">Sampling Techniques</span>
+    </div>
+  </div>
+
+  <div>
+    <div class="sidebar-section-label">Socials</div>
+    <div class="socials">
+      <a class="social-btn" href="https://linkedin.com/in/yourprofile" target="_blank" title="LinkedIn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+      <a class="social-btn" href="https://github.com/yourusername" target="_blank" title="GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      </a>
+      <a class="social-btn" href="https://twitter.com/yourhandle" target="_blank" title="Twitter / X">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a class="social-btn" href="/cdn-cgi/l/email-protection#fe87918b8cbe9b939f9792d09d9193" target="_blank" title="Email">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      </a>
+      <a class="social-btn" href="https://public.tableau.com/profile/yourprofile" target="_blank" title="Tableau Public">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><rect x="11" y="2" width="2" height="6" rx="1"/><rect x="11" y="16" width="2" height="6" rx="1"/><rect x="2" y="11" width="6" height="2" rx="1"/><rect x="16" y="11" width="6" height="2" rx="1"/><rect x="4.5" y="4.5" width="2" height="4" rx="1"/><rect x="17.5" y="15.5" width="2" height="4" rx="1"/><rect x="15.5" y="4.5" width="4" height="2" rx="1"/><rect x="4.5" y="17.5" width="4" height="2" rx="1"/></svg>
+      </a>
+      <a class="social-btn email-link" href="/cdn-cgi/l/email-protection#7e07110b0c3e1b131f1712501d1113">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        email me
+      </a>
+    </div>
+  </div>
+
+</aside>
+
+<!-- ══════════════════════════════════
+     MAIN CONTENT
+══════════════════════════════════ -->
+<main>
+  <h1 class="section-title">Projects</h1>
+
+  <div class="projects-grid">
+
+    <!-- ── PROJECT CARD 1 ── -->
+    <div class="project-card">
+      <div class="project-img">
+        <!-- Replace with: <img src="images/project1.jpg" alt="Project 1"> -->
+        Project Image
+      </div>
+      <div class="project-body">
+        <div class="project-title">Your First Project Title</div>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">SQL</span>
+          <span class="tag">Tableau</span>
+        </div>
+        <div class="project-desc">
+          Write a short description of your project here. What was the goal? What data did you use? What did you find? Keep it to 2–3 sentences.
+        </div>
+      </div>
+      <div class="project-footer">
+        <a class="btn" href="https://github.com/yourusername/project-repo/blob/main/report.md" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          View Report
+        </a>
+        <a class="btn" href="https://public.tableau.com/your-dashboard-link" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          View Dashboard
+        </a>
+      </div>
+    </div>
+
+    <!-- ── PROJECT CARD 2 ── -->
+    <div class="project-card">
+      <div class="project-img">
+        Project Image
+      </div>
+      <div class="project-body">
+        <div class="project-title">Your Second Project Title</div>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">R</span>
+        </div>
+        <div class="project-desc">
+          Write a short description of your project here. What was the goal? What data did you use? What did you find? Keep it to 2–3 sentences.
+        </div>
+      </div>
+      <div class="project-footer">
+        <a class="btn" href="https://github.com/yourusername/project-repo/blob/main/report.md" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          View Report
+        </a>
+        <a class="btn" href="https://public.tableau.com/your-dashboard-link" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          View Dashboard
+        </a>
+      </div>
+    </div>
+
+    <!-- ── PROJECT CARD 3 ── -->
+    <div class="project-card">
+      <div class="project-img">
+        Project Image
+      </div>
+      <div class="project-body">
+        <div class="project-title">Your Third Project Title</div>
+        <div class="tags">
+          <span class="tag">SQL</span>
+          <span class="tag">Excel</span>
+        </div>
+        <div class="project-desc">
+          Write a short description of your project here. What was the goal? What data did you use? What did you find? Keep it to 2–3 sentences.
+        </div>
+      </div>
+      <div class="project-footer">
+        <a class="btn" href="https://github.com/yourusername/project-repo/blob/main/report.md" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          View Report
+        </a>
+        <a class="btn" href="https://public.tableau.com/your-dashboard-link" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          View Dashboard
+        </a>
+      </div>
+    </div>
+
+    <!-- ── PROJECT CARD 4 ── -->
+    <div class="project-card">
+      <div class="project-img">
+        Project Image
+      </div>
+      <div class="project-body">
+        <div class="project-title">Your Fourth Project Title</div>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">Machine Learning</span>
+        </div>
+        <div class="project-desc">
+          Write a short description of your project here. What was the goal? What data did you use? What did you find? Keep it to 2–3 sentences.
+        </div>
+      </div>
+      <div class="project-footer">
+        <a class="btn" href="https://github.com/yourusername/project-repo/blob/main/report.md" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          View Report
+        </a>
+        <a class="btn" href="https://public.tableau.com/your-dashboard-link" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          View Dashboard
+        </a>
+      </div>
+    </div>
+
+    <!-- ── ADD MORE CARDS
