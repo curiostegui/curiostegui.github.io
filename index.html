@@ -39,16 +39,15 @@
     /* ── SIDEBAR ── */
     aside {
       width: var(--sidebar-width);
-      min-height: 100vh;
       background: var(--sidebar-bg);
       border-right: 1px solid var(--border);
       padding: 32px 20px;
-      position: fixed;
-      top: 0; left: 0;
+      position: sticky;
+      top: 0;
+      align-self: flex-start;
       display: flex;
       flex-direction: column;
       gap: 24px;
-      overflow-y: auto;
     }
 
     .profile-pic {
